@@ -6,7 +6,7 @@ const product = require('./product');
 const category = require('./category');
 const order = require('./order');
 const user = require('./user');
-const search = require('./search');
+//const search = require('./search');
 const pagination = require('./pagination');
 const chart = require('./chart');
 
@@ -26,7 +26,7 @@ Router.use('/user', user);
 Router.use('/product', product);
 Router.use('/category', auth.verify,category);
 Router.use('/order', order);
-Router.use('/search', search);
+// Router.use('/search', search);
 Router.use('/pagination', pagination);
 Router.use('/chart', chart);
 
