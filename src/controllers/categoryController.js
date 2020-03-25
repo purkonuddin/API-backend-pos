@@ -65,11 +65,24 @@ exports.update = function (req, res) {
 // Handle delete category
 exports.delete = function (req, res) {
   const id_category = req.params.id_category;
-  categoryModel.deleteCategory(id_category).then((result)=>{
-    res.json({
-      status:"success",
-      message:"Category deleted"
-    });
+  let checktabelproduct = categoryModel.checkCategory(id_category);
+  checktabelproduct.then((result)=>{
+    if (result.length>0) {
+      res.json({
+          status:"cancel",
+          message:"kategori ini masih digunakan pada tabel product",
+          result:result
+        });
+    }else {
+      categoryModel.deleteCategory(id_category).then((result)=>{
+        res.json({
+          status:"success",
+          message:"Category deleted",
+          result:result
+        });
+      })
+      .catch(err=>console.log(err));
+    }
   })
   .catch(err=>console.log(err));
 };

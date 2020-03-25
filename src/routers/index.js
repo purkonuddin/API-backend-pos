@@ -21,10 +21,10 @@ Router.get('/', function(req, res){
       }
     });
   });
-
-Router.use('/user', user); 
+// auth.verify,
+Router.use('/user', user);
 Router.use('/product', product);
-Router.use('/category', auth.verify,category);
+Router.use('/category', category);
 Router.use('/order', order);
 Router.use('/search', search);
 Router.use('/pagination', pagination);

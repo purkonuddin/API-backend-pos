@@ -5,7 +5,7 @@ const connection = require('../configs/db');
 module.exports = {
     getProduct: ()=>{
         return new Promise((resolve, reject)=>{
-            connection.query("SELECT product_name.*, category.name_category FROM product_name INNER JOIN category ON product_name.id_category = category.id WHERE product_name.stock>0 ORDER BY category.name_category", (err, result)=>{
+            connection.query("SELECT p.*, c.name_category FROM product_name p, category c WHERE p.id_category=c.id", (err, result)=>{
                 if(!err){
                     resolve(result);
                 }else{
@@ -26,8 +26,9 @@ module.exports = {
         })
     },
     productDetail: (id_product)=>{
+      // digunakan pada order.order
         return new Promise((resolve, reject)=>{
-            connection.query("SELECT product_name.*, category.name_category FROM product_name INNER JOIN category ON product_name.id_category = category.id WHERE product_name.id=?", id_product, (err, result)=>{
+            connection.query("SELECT p.*, c.name_category FROM product_name p, category c WHERE p.id_category=c.id AND p.id=?", id_product, (err, result)=>{
                 if(!err){
                     resolve(result);
                 }else{
@@ -49,7 +50,7 @@ module.exports = {
         })
     },
     updateProductStock: (id_product,stock)=>{
-
+      // digunakan oleh order.order
         return new Promise((resolve, reject)=>{
             connection.query("UPDATE product_name SET stock=? WHERE id=?",[stock,id_product], (err, result)=>{
                 if(!err){
@@ -77,10 +78,10 @@ module.exports = {
           });
 
         })
-    }, 
+    },
     searchProduct:(name)=>{
       return new Promise((resolve, reject)=>{
-        connection.query("SELECT * FROM product_name WHERE name LIKE ?", '%'+name+'%', (err, result)=>{ 
+        connection.query("SELECT * FROM product_name WHERE name LIKE ?", '%'+name+'%', (err, result)=>{
           if(!err){
             resolve(result);
           }else{
@@ -91,7 +92,7 @@ module.exports = {
     },
     countProduct:()=>{
       return new Promise((resolve, reject)=>{
-        connection.query('SELECT COUNT(*) AS rows FROM product_name', (err, result)=>{
+        connection.query('SELECT COUNT(*) AS baris FROM post.product_name', (err, result)=>{
           resolve(result);
         });
       });

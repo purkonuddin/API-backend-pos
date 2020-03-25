@@ -1,16 +1,16 @@
 const productModel = require('../models/productModel');
 
 exports.index = (req, res, err)=>{
-    let page = req.params.page; 
+    let page = req.params.page;
     let perpage = req.params.perpage;
-    
+
     let offset = page > 1 ? (page*perpage)-perpage : 0;
     let totalRec = 0;
-    let pageCount =0; 
+    let pageCount =0;
     productModel.countProduct().then((result)=>{
-        totalRec=result[0].rows;
-        pageCount = Math.ceil(totalRec/perpage); 
-        productModel.pagingProduct(offset, perpage).then((result)=>{ 
+        totalRec=result[0].baris;
+        pageCount = Math.ceil(totalRec/perpage);
+        productModel.pagingProduct(offset, perpage).then((result)=>{
           res.json({
             curren_page:parseInt(page),
             offset:offset,
@@ -19,7 +19,7 @@ exports.index = (req, res, err)=>{
             total_page:parseInt(pageCount),
             next_page:page < pageCount - 1 ? parseInt(page)+1 : undefined,
             prev_page:page > 1 ? page - 1 : undefined,
-            result 
+            result
           })
         })
         .catch(err=>console.log(err));

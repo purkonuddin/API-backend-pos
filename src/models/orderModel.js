@@ -3,6 +3,7 @@ const connection = require('../configs/db');
 
 module.exports = {
   insertOrder: (data)=>{
+    // digunakan oleh order.order
       return new Promise((resolve, reject)=>{
           connection.query("INSERT INTO card SET ?", data, (err, result)=>{
               if(!err){
@@ -14,6 +15,7 @@ module.exports = {
       })
   },
   getOrderBytransaction : (no_transaction)=>{
+    // digunakan oleh order.cards
       return new Promise((resolve, reject)=>{
           connection.query("SELECT * FROM `card` WHERE `no_transaction` = ? ORDER BY `product` DESC", no_transaction, (err, result)=>{
             if(!err){
@@ -80,6 +82,6 @@ module.exports = {
                 }
             });
         })
-    } 
+    }
 
 }

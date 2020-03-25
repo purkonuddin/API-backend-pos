@@ -7,8 +7,8 @@ var multer  = require('multer');
 let app=express();
 let bodyParser = require('body-parser');
 
-var cors = require('cors');  
-var whitelist = ['http://localhost:3000']
+var cors = require('cors');
+var whitelist = ['http://localhost:3000', 'http://18.206.201.80:3000'] // http://18.206.201.80:3000/ aws
 var corsOptions = {
     origin: function (origin, callback) {
       if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -17,7 +17,7 @@ var corsOptions = {
         callback(new Error('Not allowed by CORS'));
       }
     }
-  } 
+  }
 
 app.use(cors(corsOptions))
 app.use('/uploads', express.static('./uploads'));
@@ -27,10 +27,10 @@ var port = process.env.SERVER_PORT || 8080;
 app.use(bodyParser.urlencoded({
   extended:true
 }));
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 // initialize first API request
 app.get('/',(req,res)=>res.send('Hello world with express and nodemon'));
-// import 
+// import
 // let apiRoutes = require('./src/routers/api-routes');
 let apiRoutes = require('./src/routers/index');
 

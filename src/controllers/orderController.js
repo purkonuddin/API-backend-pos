@@ -23,6 +23,7 @@ exports.order=(req, res, err)=>{
       res.json({message:'Cannot reduce Order below 0'});
     }else {//}
       // var price = result[0].price;
+      const created_at = new Date();
       let updtStock = result[0].stock - qty;
       // add product order
       let data = {
@@ -32,7 +33,8 @@ exports.order=(req, res, err)=>{
         name : result[0].name,
         qty,
         price : result[0].price,
-        sub_total:qty*result[0].price
+        sub_total:qty*result[0].price,
+        created_at:created_at
       }
       let addProductOrder = new Promise((resolve, reject)=>{
         // var updtStock = result[0].stock - qty;
@@ -75,42 +77,42 @@ exports.order=(req, res, err)=>{
   .catch(err=>console.log(err));
 
 }
-exports.test=(req, res, err)=>{
-  const updtStock = req.body.stock;
-  const id_product = req.body.id_product;
-  productModel.updateProductStock(id_product, updtStock).then((result)=>{
-    console.log(['status update stok : ', result]);
-  })
-  .catch(err=>console.log(err));
-}
+// exports.test=(req, res, err)=>{
+//   const updtStock = req.body.stock;
+//   const id_product = req.body.id_product;
+//   productModel.updateProductStock(id_product, updtStock).then((result)=>{
+//     console.log(['status update stok : ', result]);
+//   })
+//   .catch(err=>console.log(err));
+// }
 
-exports.view=(req, res, err)=>{
-  let test = orderModel.getOrderTotal();
-  test.then((result)=>{
-    console.log(result);
-    res.json({result});
-  });
-  test.catch(err=>console.log(err));
-}
+// exports.view=(req, res, err)=>{
+//   let test = orderModel.getOrderTotal();
+//   test.then((result)=>{
+//     console.log(result);
+//     res.json({result});
+//   });
+//   test.catch(err=>console.log(err));
+// }
 // add to card tb_sementara
-exports.card=(req, res, err)=>{
-  let data = {
-    id_user:req.body.id_user,
-    id_barang:req.body.id_barang,
-    qty : 1,
-    status : false
-  }
-  // var addItemCard = new Promise((resolve, reject)=>{
-    // var updtStock = result[0].stock - qty;
-    orderModel.insertCard(data)
-    .then((result)=>{
-      console.log(['changedRows : ', result.insertId]);
-      res.json({result});
-    })
-    .catch(err=>console.log(err));
-
-  // });
-}
+// exports.card=(req, res, err)=>{
+//   let data = {
+//     id_user:req.body.id_user,
+//     id_barang:req.body.id_barang,
+//     qty : 1,
+//     status : false
+//   }
+//   // var addItemCard = new Promise((resolve, reject)=>{
+//     // var updtStock = result[0].stock - qty;
+//     orderModel.insertCard(data)
+//     .then((result)=>{
+//       console.log(['changedRows : ', result.insertId]);
+//       res.json({result});
+//     })
+//     .catch(err=>console.log(err));
+//
+//   // });
+// }
 
 exports.cards=(req, res, err)=>{
   const no_transaction =req.params.no_transaction
@@ -122,23 +124,22 @@ exports.cards=(req, res, err)=>{
   test.catch(err=>console.log(err));
 }
 
-exports.max=(req, res, err)=>{
-  const id_user =req.params.id_user
-  let test = orderModel.getMaxNoOrder();
-  test.then((result)=>{
-    console.log(result);
-    res.send(result);
-  });
-  test.catch(err=>console.log(err));
-}
+// exports.max=(req, res, err)=>{
+//   const id_user =req.params.id_user
+//   let test = orderModel.getMaxNoOrder();
+//   test.then((result)=>{
+//     console.log(result);
+//     res.send(result);
+//   });
+//   test.catch(err=>console.log(err));
+// }
 // update status tb_sementara
-exports.cardSts=(req, res, err)=>{
-  const id_card =req.params.id_s;
-  let test = orderModel.updateCardSts(id_card);
-  test.then((result)=>{
-    console.log(result);
-    res.send(result);
-  });
-  test.catch(err=>console.log(err));
-}
- 
+// exports.cardSts=(req, res, err)=>{
+//   const id_card =req.params.id_s;
+//   let test = orderModel.updateCardSts(id_card);
+//   test.then((result)=>{
+//     console.log(result);
+//     res.send(result);
+//   });
+//   test.catch(err=>console.log(err));
+// }
