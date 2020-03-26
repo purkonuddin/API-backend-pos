@@ -35,5 +35,10 @@ PASS= // default
 DATABASE=note
 NODE_ENV=development node server.js
 ```
+## Release
+
+<a href="http://18.206.201.80:8080">
+  <img src="https://img.shields.io/badge/Visit%20on%20the-18.206.201.80-blue.svg?style=popout&logo=amazon-aws"/>
+</a>
 
 ## End Point
