@@ -6,7 +6,7 @@ const product = require('./product');
 const category = require('./category');
 const order = require('./order');
 const user = require('./user');
-//const search = require('./search');
+const search = require('./search');
 const pagination = require('./pagination');
 const chart = require('./chart');
 
