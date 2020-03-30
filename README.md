@@ -42,3 +42,5 @@ NODE_ENV=development node server.js
 </a>
 
 ## End Point
+<p>pagination</p> 
+<span>http://18.206.201.80:8080/api/pagination/products?page=1&limit=2</span>
