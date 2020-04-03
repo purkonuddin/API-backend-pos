@@ -1,4 +1,4 @@
-API-backend-pos http://18.206.201.80:8080
+API-backend-pos http://100.24.31.79:8080/
 <h1 align="center">ExpressJS - POS RESTfull API</h1>
 
 
@@ -37,10 +37,13 @@ NODE_ENV=development node server.js
 ```
 ## Release
 
-<a href="http://18.206.201.80:8080">
-  <img src="https://img.shields.io/badge/Visit%20on%20the-18.206.201.80-blue.svg?style=popout&logo=amazon-aws"/>
+<a href="http://100.24.31.79:8080">
+  <img src="https://img.shields.io/badge/Visit%20on%20the-100.24.31.79-blue.svg?style=popout&logo=amazon-aws"/>
 </a>
 
 ## End Point
 <p>pagination</p> 
-<span>http://18.206.201.80:8080/api/pagination/products?page=1&limit=2</span>
+<span>http://100.24.31.79:8080/api/pagination/products?page=1&limit=2</span>
+
+
+
