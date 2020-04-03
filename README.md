@@ -28,12 +28,11 @@ Express.js is a web application framework for Node.js. [More about Express](http
 ## Set up .env file
 Open .env file on your favorite code editor, and copy paste this code below :
 ```
-PORT=3000
+PORT=8080
 HOST=localhost
 USER=root // default
 PASS= // default
-DATABASE=note
-NODE_ENV=development node server.js
+DATABASE=post 
 ```
 ## Release
 
