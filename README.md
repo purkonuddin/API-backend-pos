@@ -37,7 +37,6 @@ DATABASE=post
 ## Release
 
 <a href="http://100.24.31.79:8080">
-  <img src="https://img.shields.io/endpoint?color=red&label=visite%20on%20the&logo=test&logoColor=green&style=plastic&url=http%3A%2F%2F100.24.31.79%3A8080%2Fapi%2F"/>
   <img src="https://img.shields.io/badge/Visit%20on%20the-100.24.31.79-blue.svg?style=popout&logo=amazon-aws"/>
 </a>
 
