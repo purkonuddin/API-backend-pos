@@ -33,24 +33,25 @@ function fileFilter (req, file, cb){
 
 module.exports = {
   upload :(req, res, err)=>{
+    console.log('upload: ',req.params, req.body, req.query);
           const id_user = req.params.id_user;
           userModel.getUsers()
           .then((data)=>{
               let users = data;
               users.filter((user)=>{
-                console.log('filter user ->',user.id.toString());
-                console.log('id_user ->',id_user);
-                console.log(user.id.toString() === id_user);
                 if(user.id.toString() === id_user){
                   //uploadimage
                   const uploadStatus = new Promise((resolve, reject)=>{
                     let dataImage = multer({ storage: storage ,fileFilter: fileFilter}).single('image');
-
                     dataImage(req, res, err => {
+                      console.log('dataImage',req.file);
+                      console.log('dataImage',req.body);
+
                       if (req.file) {
                         resolve(req.file.filename)
                       }else {
                         reject(res.json({
+                          status: 'gagal',
                           message:'image gagal upload',
                           rules:'file harus jpg|png|gif'
                         }));
@@ -63,20 +64,19 @@ module.exports = {
                       const image = `${process.env.REACT_APP_URL_UPLOADS+'users/'+filename}`;
                       user.image = image;
                       userModel.updateUser(user, user.id).then((result)=>{
-                        console.log(result.message);
+                        // console.log(result.message);
                         res.json({
+                            status: 'success',
                             message: `${image}`
                         })
                       }).catch(err=>new Error(err));
                     }
-                  )
+                  ).catch(err=>new Error(err));
 
                 }
               })
 
           }).catch(err=>console.log(err))
-      //   }
-      // ).catch(err=>console.log(err))
   },
     update :(req, res, err)=>{
 
@@ -102,6 +102,23 @@ module.exports = {
             res.json(result)
         })
         .catch(err=>console.log(err))
+    },
+    login2 : (req, res) =>{
+      let id = req.body.id;
+      let password = req.body.password;
+      if (id && password) {
+        userModel.login(id, password).then((result)=>{
+          if (result.length > 0) {
+            res.json(result);
+          }else {
+            res.send('Incorect Id and/or password');
+          }
+          res.end();
+        }).catch(err=>console.log(err));
+      } else {
+        res.send('Please enter Id and Password!');
+        res.end();
+      }
     },
     login : (req, res)=>{ // cashier login
         //get users
@@ -129,7 +146,7 @@ module.exports = {
                         }
                     })
                 }
-
+                // NOTE: ada error (code: 'ERR_HTTP_HEADERS_SENT') jika user id dan password salah
             })
             .catch(err=>console.log(err));
 

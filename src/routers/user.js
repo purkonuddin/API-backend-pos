@@ -9,6 +9,8 @@ Router.route('/')
 // post -> src/components/login.onSubmitForm
 Router.route('/login')
     .post(userController.login);
+Router.route('/login2')
+  .post(userController.login2);
 Router.route('/logout/:user_id')
     .get(logoutController.logout);
 // post -> src/components/users/onSubmitForm
@@ -19,7 +21,10 @@ Router.route('/signup')
 Router.route('/:id_user')
     .get(userController.view)
     .delete(userController.delete)
-    .post(userController.upload)
+    // .post(userController.upload)
     .patch(userController.update);
+
+Router.route('/upload/:id_user')
+    .post(userController.upload);
 
 module.exports = Router;

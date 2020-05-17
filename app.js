@@ -8,7 +8,7 @@ let app=express();
 let bodyParser = require('body-parser');
 
 var cors = require('cors');
-var whitelist = ['http://localhost:3000', 'http://18.206.201.80:3000'] // http://18.206.201.80:3000/ aws
+var whitelist = ['http://localhost:3000', 'http://localhost:8081', 'http://34.238.252.183:3000'] // http://18.206.201.80:3000/ aws
 var corsOptions = {
     origin: function (origin, callback) {
       if (whitelist.indexOf(origin) !== -1 || !origin) {
