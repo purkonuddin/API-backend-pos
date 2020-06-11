@@ -10,6 +10,7 @@ const user = require('./user');
 const search = require('./search');
 const pagination = require('./pagination');
 const chart = require('./chart');
+const email = require('./email');
 
 // set default api response
 Router.get('/', function(req, res){
@@ -31,5 +32,6 @@ Router.use('/search', search);
 Router.use(paginate.middleware(10, 50));
 Router.use('/pagination', pagination);
 Router.use('/chart', chart);
+Router.use('/email', email);
 
 module.exports = Router;
