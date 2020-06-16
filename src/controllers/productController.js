@@ -118,11 +118,11 @@ module.exports = {
       const id_product = req.params.id_product;
       productModel.deleteProduct(id_product).then((result)=>{
         let file_image = result[0].image.substr(result[0].image.indexOf("uploads/")+8);
-        console.log(file_image);
+        // console.log(file_image);
         fs.unlink('uploads/'+file_image, function (err) {
             if (err) console.log(err);
             // if no error, file has been deleted successfully
-            console.log(result[0].image+', File deleted!');
+            // console.log(result[0].image+', File deleted!');
         });
         res.json({
           status:"success",
@@ -133,44 +133,6 @@ module.exports = {
       .catch(err=>console.log(err));
     },
 
-    // search:(req, res)=>{
-    //   const name = req.body.name;
-    //   productModel.searchProduct(name).then((result)=>{
-    //     res.json({
-    //       status:"Success",
-    //       message:"Product Retrived successfully",
-    //       result:result
-    //     });
-    //   })
-    //   .catch(err=>console.log(err));
-    // },
-
-    // pag:(req, res, err)=>{
-    //   let page = req.body.page;
-    //   let perpage = req.body.perpage;
-    //
-    //   let offset = page > 1 ? (page*perpage)-perpage : 0;
-    //   let totalRec = 0;
-    //   let pageCount =0;
-    //   productModel.countProduct().then((result)=>{
-    //     totalRec=result[0].rows;
-    //     pageCount = Math.ceil(totalRec/perpage);
-    //     productModel.pagingProduct(offset, perpage).then((result)=>{
-    //       res.json({
-    //         page:parseInt(page),
-    //         offset:offset,
-    //         per_page:parseInt(perpage),
-    //         total:parseInt(totalRec),
-    //         total_page:parseInt(pageCount),
-    //         next_page:page < pageCount - 1 ? parseInt(page)+1 : undefined,
-    //         prev_page:page > 1 ? page - 1 : undefined,
-    //         data:result
-    //       })
-    //     })
-    //     .catch(err=>console.log(err));
-    //   })
-    //   .catch(err=>console.log(err));
-    // },
     view:(req, res)=>{
       const id_product = req.params.id_product;
       productModel.productDetail(id_product).then((result)=>{

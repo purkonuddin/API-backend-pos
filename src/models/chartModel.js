@@ -29,7 +29,19 @@ module.exports = {
   chartThisYear:()=>{
     // grafik transaksi tahun
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT COUNT(*) AS `Rows`, DATE_FORMAT(created_at, '%m/%Y') AS date, MONTHNAME(`created_at`) AS bulan,SUM(`sub_total`) Total FROM post.card WHERE YEAR(`created_at`)=YEAR(NOW()) GROUP BY MONTH(`created_at`) ORDER BY MONTH(`created_at`)", (err, result)=>{
+        connection.query("SELECT MONTH(`created_at`) AS id_bulan, COUNT(*) AS `Rows`, DATE_FORMAT(created_at, '%m/%Y') AS date, MONTHNAME(`created_at`) AS bulan,SUM(`sub_total`) Total FROM post.card WHERE YEAR(`created_at`)=YEAR(NOW()) GROUP BY MONTH(`created_at`) ORDER BY MONTH(`created_at`)", (err, result)=>{
+            if(!err){
+                resolve(result);
+            }else{
+                reject(new Error(err));
+            }
+        });
+    })
+  },
+  userChartThisYear:(id_user)=>{
+    // grafik transaksi tahun
+    return new Promise((resolve, reject)=>{
+        connection.query("SELECT MONTH(`created_at`) AS id_bulan, COUNT(*) AS `Rows`, DATE_FORMAT(created_at, '%m/%Y') AS date, MONTHNAME(`created_at`) AS bulan,SUM(`sub_total`) Total FROM post.card WHERE YEAR(`created_at`)=YEAR(NOW()) AND `user` = ? GROUP BY MONTH(`created_at`) ORDER BY MONTH(`created_at`)", id_user, (err, result)=>{
             if(!err){
                 resolve(result);
             }else{
@@ -43,7 +55,7 @@ module.exports = {
     return new Promise((resolve, reject)=>{
         connection.query("SELECT COUNT(*) AS `Rows`, DAY(CURRENT_DATE()) AS hari, SUM(sub_total) as total FROM post.card WHERE created_at >= CURRENT_DATE()", (err, result)=>{
             if(!err){
-              console.log(result);
+              // console.log(result);
                 resolve(result);
             }else{
                 reject(new Error(err));
@@ -103,7 +115,7 @@ module.exports = {
   //transaksi minggu ini
   usertransactionthisweek:(id_user)=>{
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT `no_transaction`, COUNT(*) AS `Rows`, SUM(`sub_total`) AS total, `created_at` FROM post.card WHERE YEARWEEK(`created_at`)=YEARWEEK(NOW()) AND `user` = ? GROUP BY `no_transaction` ORDER BY `no_transaction`", id_user, (err, result)=>{
+        connection.query("SELECT `no_transaction`, COUNT(*) AS `Rows`, SUM(`sub_total`) AS total, DATE_FORMAT(`created_at`, '%d/%m/%Y') AS tanggal FROM post.card WHERE YEARWEEK(`created_at`)=YEARWEEK(NOW()) AND `user` = ? GROUP BY `no_transaction` ORDER BY `no_transaction`", id_user, (err, result)=>{
             if(!err){
                 resolve(result);
             }else{
@@ -127,7 +139,7 @@ module.exports = {
   //total income user minggu ini returun: {Rows, bulan ini, total transaksi}
   userincomethisweek:(id_user)=>{
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT `user`, YEARWEEK(NOW()) AS minggu , SUM(`sub_total`) as total FROM post.card WHERE YEARWEEK(`created_at`)=YEARWEEK(NOW()) AND `user` = ?", id_user, (err, result)=>{
+        connection.query("SELECT `user`, WEEK(NOW()) AS minggu , SUM(`sub_total`) as total FROM post.card WHERE YEARWEEK(`created_at`)=YEARWEEK(NOW()) AND `user` = ?", id_user, (err, result)=>{
             if(!err){
                 resolve(result);
             }else{
@@ -163,7 +175,7 @@ module.exports = {
   //total income user bulan ini returun: {user id, bulan ini, total transaksi}
   userincomethismonth:(id_user)=>{
     return new Promise((resolve, reject)=>{
-        connection.query("SELECT `user`, MONTH(NOW()) AS bulan, SUM(`sub_total`) AS totla FROM post.card WHERE MONTH(`created_at`)=MONTH(NOW()) AND `user` = ? ORDER BY `created_at`", id_user, (err, result)=>{
+        connection.query("SELECT `user`, MONTH(NOW()) AS bulan, SUM(`sub_total`) AS total FROM post.card WHERE MONTH(`created_at`)=MONTH(NOW()) AND `user` = ? ORDER BY `created_at`", id_user, (err, result)=>{
             if(!err){
                 resolve(result);
             }else{
