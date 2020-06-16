@@ -1,4 +1,4 @@
-API-backend-pos http://18.206.201.80:8080
+API-backend-pos http://100.24.31.79:8080/
 <h1 align="center">ExpressJS - POS RESTfull API</h1>
 
 
@@ -28,17 +28,21 @@ Express.js is a web application framework for Node.js. [More about Express](http
 ## Set up .env file
 Open .env file on your favorite code editor, and copy paste this code below :
 ```
-PORT=3000
+PORT=8080
 HOST=localhost
 USER=root // default
 PASS= // default
-DATABASE=note
-NODE_ENV=development node server.js
+DATABASE=post 
 ```
 ## Release
 
-<a href="http://18.206.201.80:8080">
-  <img src="https://img.shields.io/badge/Visit%20on%20the-18.206.201.80-blue.svg?style=popout&logo=amazon-aws"/>
+<a href="http://100.24.31.79:8080">
+  <img src="https://img.shields.io/badge/Visit%20on%20the-100.24.31.79-blue.svg?style=popout&logo=amazon-aws"/>
 </a>
 
 ## End Point
+<p>pagination</p> 
+<span>http://100.24.31.79:8080/api/pagination/products?page=1&limit=2</span>
+
+
+
